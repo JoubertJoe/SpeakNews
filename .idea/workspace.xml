@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97c3bb22-2833-468c-8a50-69ae3c992023" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SpeakNews/Prototipo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpeakNews/Final.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpeakNews/Final.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpeakNews/noticia.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/SpeakNews/noticia.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpeakNews/prototipo.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpeakNews/Final.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,22 +16,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SpeakNews/Final.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="101" column="30" lean-forward="true" selection-start-line="101" selection-start-column="30" selection-end-line="101" selection-end-column="30" />
+            <state relative-caret-position="166">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SpeakNews/Prototipo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#1#30#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,6 +41,10 @@
       <find>print</find>
       <find>categoria</find>
       <find>sear</find>
+      <find>urlpesquisa</find>
+      <find>url</find>
+      <find>nlink</find>
+      <find>nLink</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,20 +180,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1366" height="740" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24944155" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5688757" weight="0.35284552" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.568131" visible="true" weight="0.35284552" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4996277" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4981385" weight="0.19186991" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4981385" weight="0.3300813" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.43112436" side_tool="true" visible="true" weight="0.35284552" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.43186894" side_tool="true" visible="true" weight="0.35284552" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.20097245" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -211,20 +202,20 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SpeakNews/Prototipo.py">
+    <entry file="file://$PROJECT_DIR$/SpeakNews/Final.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+        <state relative-caret-position="166">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#1#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SpeakNews/Final.py">
+    <entry file="file://$PROJECT_DIR$/SpeakNews/Prototipo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="101" column="30" lean-forward="true" selection-start-line="101" selection-start-column="30" selection-end-line="101" selection-end-column="30" />
+        <state relative-caret-position="330">
+          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

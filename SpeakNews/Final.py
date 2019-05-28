@@ -36,7 +36,7 @@ def menu(opcaoEscolhida):
     elif (opcaoEscolhida == 2):
         urlPesquisa("")
     elif (opcaoEscolhida == 3):
-        print("")
+        pesquisa("https://news.google.com/?hl=pt-BR&gl=BR&ceid=BR:pt-419")
     pass
 
 
@@ -51,17 +51,24 @@ def categoria():
     print("|-------------------------------------------|")
     # recebendo Categoria
     escolhido = input("|---       - Categoria: ")
-    if (escolhido == 1):
-        categoriaEscolhida = "Esporte"
+    if( (escolhido == "1") or (escolhido.lower() == "esporte" )):
+        urlPesquisa("Esporte")
+    elif ((escolhido == "2") or (escolhido.lower() == "jogos" )):
+        urlPesquisa("Jogos")
+    elif ((escolhido == "3") or (escolhido.lower() == "política" )):
+        urlPesquisa("Política")
+    elif ((escolhido == "4")  or (escolhido.lower() == "tv" )):
+        urlPesquisa("Tv")
+    elif ((escolhido == "0") or (escolhido.lower() == "outro" )):
+        urlPesquisa(input("Categoria: "))
 
-    # Retorna a categoria escolhida
-    return categoriaEscolhida
 
 
 # urlPesquisa é uma função que define como será a pesquisa
 # de notícias, anexando junto a URL de pesquisa os parâmetros
 # necessários.
 def urlPesquisa(prePesquisa):
+
     # Colhendo a pesquisa do Usuário
     print("|---- Digite sua pesquia: ")
     search = input("|---- ")
@@ -71,7 +78,6 @@ def urlPesquisa(prePesquisa):
     url = url.replace(' ', '%20')
     # Inicia a rotina de pesquisa
     pesquisa(url)
-    pass
 
 
 # Efetiva a pesquisa de Notícias e armazena-as em um array
@@ -89,10 +95,12 @@ def pesquisa(url):
         else:
             if './articles' in x:
                 linkArray.append(x)
-                print(x)
+                #print(x)
     # Escolha do link de notícia
     # Paramêtro 0 começa do primeiro resultado
+    print(linkArray)
     escolhePesquisa(0, linkArray)
+
 
 
 # Função para escolher qual notícia ler (Préviamente pesquisado)
@@ -152,7 +160,8 @@ def escolhePesquisa(nLink, link_array):
 
     elif (option == "2"):
         # Pula para o próximo Link da lista
-        escolhePesquisa(nLink + 1)
+        print(nLink)
+        escolhePesquisa(nLink + 2,link_array)
     elif (option == "3"):
         # Recomeça o programa
         init()
