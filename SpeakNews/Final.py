@@ -4,6 +4,12 @@ from pygame import mixer
 import time
 from bs4 import BeautifulSoup
 import requests
+import speech_recognition as sr
+
+recon = sr.Recognizer()
+with sr.Microphone() as fonte:
+    audio = recon.listen(fonte)
+    resposta = recon.recognize_google(audio, language='pt')
 
 
 # Inicia rotina do programa
@@ -123,7 +129,7 @@ def escolhePesquisa(nLink, link_array):
     print(a.title)
     # Inicializando Sintetizador de Voz
     # Sintetizando a voz
-    voz = gTTS('Fonte :' + a.title, lang='pt')
+    voz = gTTS('Título: ' + a.title, lang='pt')
     # Salvando a voz como arquivo MP3
     voz.save('noticia.mp3')
     print('Falando...')
