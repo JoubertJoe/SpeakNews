@@ -11,9 +11,12 @@ r = sr.Recognizer()
 
 
 def reconhece():
-    # Reconhece é uma função que serve para
-    #reconhecer os comandos de voz passados
-    #pelo usuário.
+    """
+     Reconhece é uma função que serve para reconhecer os comandos de voz passados pelo usuário.
+     A função utilizasse de uma api da google para reconhecimento de voz, que faz a ponte do microfone para o texto
+
+    @return: Retorna aquilo que o usuário fala para o microfone
+    """
     print("fale agora")
     with sr.Microphone() as source:
         audio = r.listen(source)
@@ -26,6 +29,14 @@ def reconhece():
         reconhece()
 
 def fala(texto):
+    """
+    Uma função simples criada para falar o texto que o usuário deve ouvir
+    Essa função também contem uma booleana que tem ultilidade de saber se ainda está sendo falado
+    pois o audio poderia interferir no reconhecimento de voz.
+    Utiliza-se gTTS (biblioteca google de sintetização de voz)
+    @param texto: Texto a ser lido pela função
+    @return: sem retorno
+    """
     # Inicia-se a rotina de sintetização e reprodução
     voz = gTTS(texto, lang='pt')
     voz.save('fala.mp3')
@@ -43,6 +54,13 @@ def fala(texto):
 
 # Inicia rotina do programa
 def init():
+    """
+    Inicia a rotina do programa em sí, chamando o primeiro menu
+    o programa foi modularizado de forma em que essa função, chama
+    de forma respectiva todas as funções a serem usadas no processo
+    de execução do programa.
+    @return:
+    """
     fala("Bem vindo ao Speak News, escolha uma opção: 1 categorias, 2 pesquisa direta, 3 notícias hoje")
     print("|-------------------------------")
     print("|---- S P E A K   N E W S  -----")
@@ -66,6 +84,13 @@ def init():
 
 # Menu de funções
 def menu(opcaoEscolhida):
+    """
+    Menu contendo opções a serem escolhidas no inicio da execução do programa
+    aqui é possível escolher se a pesquisa será feita por categorias
+    se será uma pesquisa direta, ou se simplesmente ouvirá as notícias do dia
+    @param opcaoEscolhida: Essa opção é passado para outra função, ela que define qual função sera chamada a seguir
+    @return: sem retorno
+    """
     if (opcaoEscolhida == "1") or (opcaoEscolhida == "categorias"):
         fala("opção escolhida foi Categorias")
 
@@ -84,6 +109,12 @@ def menu(opcaoEscolhida):
 
 # Categorias para facilitar pesquisa do usuário
 def categoria():
+    """
+    Caso seja escolhida o método de pesquisa categorizada essa função sera invocada
+    ela serve para escolher a categoria que será pesquisada e adicioná-la na url
+    url a qual será usada para pesquisar a notícia em sí.
+    @return: sem retorno
+    """
     print("|-------------------------------------------|")
     print("|---     1 - Esporte ")
     print("|---     2 - Jogos ")
@@ -115,10 +146,15 @@ def categoria():
 
 
 
-# urlPesquisa é uma função que define como será a pesquisa
-# de notícias, anexando junto a URL de pesquisa os parâmetros
-# necessários.
+
 def urlPesquisa(prePesquisa):
+    """
+     urlPesquisa é uma função que define como será a pesquisa
+     de notícias, anexando junto a URL de pesquisa os parâmetros
+     necessários.
+    @param prePesquisa: Caso seja escolhido categorias ou outros tipos de préparâmetros, eles podem ser adicionados aqui para se juntarem a url de pesquisa
+    @return: sem retorno
+    """
 
     # Colhendo a pesquisa do Usuário
     print("|---- Fale sua pesquia: ")
@@ -133,8 +169,14 @@ def urlPesquisa(prePesquisa):
     pesquisa(url)
 
 
-# Efetiva a pesquisa de Notícias e armazena-as em um array
+
 def pesquisa(url):
+    """
+    Aqui é efetivamente feito a pesquisa
+    Essa função efetiva a pesquisa de Notícias e armazena-as em um array
+    @param url: url a ser pesquisada
+    @return: sem retorno
+    """
     html_page = requests.get(url).text
     linkArray = []  # Array onde ficarão armazenados os links
     aux = []  # Array auxiliar dos links
@@ -156,8 +198,14 @@ def pesquisa(url):
 
 
 
-# Função para escolher qual notícia ler (Préviamente pesquisado)
+
 def escolhePesquisa(nLink, link_array):
+    """
+    Função para escolher qual notícia ler (Préviamente pesquisado)
+    @param nLink: Número do link que será lido
+    @param link_array: Um array vindo da função anterior, onde estão armazenados os links, é usado para recursividade
+    @return: sem retorno
+    """
     # tratamnto de Link (Primeiro Passo)
     link_array[nLink] = link_array[nLink].replace(".", "")
     # Criando a URL da Notícia
