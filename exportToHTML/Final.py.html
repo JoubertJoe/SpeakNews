@@ -1,0 +1,236 @@
+<html>
+<head>
+<title>Final.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #ebebeb;}
+.s2 { color: #ed864a; font-weight: bold;}
+.s3 { color: #54b33e;}
+.s4 { color: #7ec3e6;}
+.s5 { color: #ed864a;}
+.s6 { color: #33ccff; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Final.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">newspaper </span><span class="s0">import </span><span class="s1">Article</span>
+<span class="s0">from </span><span class="s1">gtts </span><span class="s0">import </span><span class="s1">gTTS</span>
+<span class="s0">from </span><span class="s1">pygame </span><span class="s0">import </span><span class="s1">mixer</span>
+<span class="s0">import </span><span class="s1">time</span>
+<span class="s0">from </span><span class="s1">bs4 </span><span class="s0">import </span><span class="s1">BeautifulSoup</span>
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">import </span><span class="s1">speech_recognition </span><span class="s0">as </span><span class="s1">sr</span>
+<span class="s0">from </span><span class="s1">subprocess </span><span class="s0">import </span><span class="s1">call</span>
+
+
+r = sr.Recognizer()
+
+<span class="s0">def </span><span class="s1">reconhece():</span>
+    <span class="s0">with </span><span class="s1">sr.Microphone() </span><span class="s0">as </span><span class="s1">source:</span>
+        audio = r.listen(source)
+    <span class="s0">try</span><span class="s1">:</span>
+        reconhecido = r.recognize_google(audio<span class="s2">, </span><span class="s1">language=</span><span class="s3">'pt'</span><span class="s1">)</span>
+        print(<span class="s3">&quot;#      -&quot; </span><span class="s1">+ reconhecido)</span>
+        <span class="s0">return </span><span class="s1">str(reconhecido).lower()</span>
+    <span class="s0">except </span><span class="s1">sr.UnknownValueError:</span>
+        print(<span class="s3">&quot;Não consegui te entender&quot;</span><span class="s1">)</span>
+        reconhece()
+
+<span class="s0">def </span><span class="s1">fala(texto):</span>
+    <span class="s4"># Inicia-se a rotina de sintetização e reprodução</span>
+    #voz = gTTS(texto, lang='pt')
+    #voz.save('fala.mp3')
+    #mixer.init()
+    #mixer.music.load('fala.mp3')
+    #mixer.music.play()
+    <span class="s1">call([</span><span class="s3">'espeak'</span><span class="s2">, </span><span class="s3">'-v'</span><span class="s2">, </span><span class="s3">'mb-br4'</span><span class="s2">, </span><span class="s3">'-s'</span><span class="s2">, </span><span class="s3">'140'</span><span class="s2">, </span><span class="s3">'80'</span><span class="s2">, </span><span class="s1">texto])</span>
+
+
+
+<span class="s4"># Inicia rotina do programa</span>
+<span class="s0">def </span><span class="s1">init():</span>
+    print(<span class="s3">&quot;|-------------------------------&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---- S P E A K   N E W S  -----&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|-------------------------------&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;################################&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    1 - Categorias            #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    2 - Pesquisa Direta       #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    3 - Notícias Hoje         #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;################################&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span>
+    fala(<span class="s3">&quot;Bem vindo ao Speak News, escolha uma opção: 1 categorias, 2 pesquisa direta, 3 notícias hoje&quot;</span><span class="s1">)</span>
+    <span class="s4"># Pegando o Input do Usuário</span>
+    <span class="s1">print(</span><span class="s3">&quot;#    - Escolha: &quot;</span><span class="s1">)</span>
+    opcao = reconhece()
+
+    <span class="s4"># chamando a opção correspondente</span>
+    <span class="s1">menu(opcao)</span>
+    print(opcao)
+
+
+<span class="s4"># Menu de funções</span>
+<span class="s0">def </span><span class="s1">menu(opcaoEscolhida):</span>
+    <span class="s0">if </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;1&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;categorias&quot;</span><span class="s1">):</span>
+        fala(<span class="s3">&quot;opção escolhida foi Categorias&quot;</span><span class="s1">)</span>
+        categoria()
+    <span class="s0">elif </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;2&quot;</span><span class="s1">)</span><span class="s0">or </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;pesquisa direta&quot;</span><span class="s1">):</span>
+        fala(<span class="s3">&quot;opção escolhida foi pesquisa direta&quot;</span><span class="s1">)</span>
+        urlPesquisa(<span class="s3">&quot;&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;3&quot;</span><span class="s1">)</span><span class="s0">or </span><span class="s1">(opcaoEscolhida == </span><span class="s3">&quot;noticias hoje&quot;</span><span class="s1">):</span>
+        fala(<span class="s3">&quot;opção escolhida foi Notícias hoje&quot;</span><span class="s1">)</span>
+        pesquisa(<span class="s3">&quot;https://news.google.com/?hl=pt-BR&amp;gl=BR&amp;ceid=BR:pt-419&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        init()
+
+
+<span class="s4"># Categorias para facilitar pesquisa do usuário</span>
+<span class="s0">def </span><span class="s1">categoria():</span>
+    print(<span class="s3">&quot;|-------------------------------------------|&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---     1 - Esporte &quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---     2 - Jogos &quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---     3 - Politica &quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---     4 - Tv &quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|---     0 - Outra &quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;|-------------------------------------------|&quot;</span><span class="s1">)</span>
+    <span class="s4"># recebendo Categoria</span>
+    <span class="s1">print(</span><span class="s3">&quot;|---       - Categoria: &quot;</span><span class="s1">)</span>
+    fala(<span class="s3">&quot;Escolha uma categoria, 1 esporte, 2 jogos, 3 política, 4 tv, 0 outras&quot;</span><span class="s1">)</span>
+    escolhido = reconhece()
+    <span class="s0">if</span><span class="s1">( (escolhido == </span><span class="s3">&quot;1&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">(escolhido == </span><span class="s3">&quot;esporte&quot; </span><span class="s1">)):</span>
+        fala(<span class="s3">&quot;Categoria Esporte&quot;</span><span class="s1">)</span>
+        urlPesquisa(<span class="s3">&quot;Esporte&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">((escolhido == </span><span class="s3">&quot;2&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">(escolhido == </span><span class="s3">&quot;jogos&quot; </span><span class="s1">)):</span>
+        fala(<span class="s3">&quot;Categoria Jogos&quot;</span><span class="s1">)</span>
+        urlPesquisa(<span class="s3">&quot;Jogos&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">((escolhido == </span><span class="s3">&quot;3&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">(escolhido == </span><span class="s3">&quot;política&quot; </span><span class="s1">)):</span>
+        urlPesquisa(<span class="s3">&quot;Política&quot;</span><span class="s1">)</span>
+        fala(<span class="s3">&quot;Categoria Política&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">((escolhido == </span><span class="s3">&quot;4&quot;</span><span class="s1">)  </span><span class="s0">or </span><span class="s1">(escolhido == </span><span class="s3">&quot;tv&quot; </span><span class="s1">)):</span>
+        fala(<span class="s3">&quot;Categoria TV&quot;</span><span class="s1">)</span>
+        urlPesquisa(<span class="s3">&quot;Tv&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">((escolhido == </span><span class="s3">&quot;0&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">(escolhido == </span><span class="s3">&quot;outro&quot; </span><span class="s1">)):</span>
+        fala(<span class="s3">&quot;Diga a outra categoria a ser usada:&quot;</span><span class="s1">)</span>
+        urlPesquisa(reconhece())
+
+
+
+<span class="s4"># urlPesquisa é uma função que define como será a pesquisa</span>
+# de notícias, anexando junto a URL de pesquisa os parâmetros
+# necessários.
+<span class="s0">def </span><span class="s1">urlPesquisa(prePesquisa):</span>
+
+    <span class="s4"># Colhendo a pesquisa do Usuário</span>
+    <span class="s1">print(</span><span class="s3">&quot;|---- Fale sua pesquia: &quot;</span><span class="s1">)</span>
+    fala(<span class="s3">&quot;Diga sua pesquisa&quot;</span><span class="s1">)</span>
+    search = reconhece()
+    <span class="s4"># preparando a URL para fazer a pesquisa</span>
+    <span class="s1">url = </span><span class="s3">'https://news.google.com/search?q=' </span><span class="s1">+ prePesquisa + search + </span><span class="s3">'&amp;hl=pt-BR&amp;gl=BR&amp;ceid=BR%3Apt-419'</span>
+    <span class="s4"># Trocar os espaços em branco por %20 (que é usado pelo google para representar o mesmo)</span>
+    <span class="s1">url = url.replace(</span><span class="s3">' '</span><span class="s2">, </span><span class="s3">'%20'</span><span class="s1">)</span>
+    <span class="s4"># Inicia a rotina de pesquisa</span>
+    <span class="s1">pesquisa(url)</span>
+
+
+<span class="s4"># Efetiva a pesquisa de Notícias e armazena-as em um array</span>
+<span class="s0">def </span><span class="s1">pesquisa(url):</span>
+    html_page = requests.get(url).text
+    linkArray = []  <span class="s4"># Array onde ficarão armazenados os links</span>
+    <span class="s1">aux = []  </span><span class="s4"># Array auxiliar dos links</span>
+    <span class="s1">soup = BeautifulSoup(html_page</span><span class="s2">, </span><span class="s3">&quot;lxml&quot;</span><span class="s1">)</span>
+    <span class="s0">for </span><span class="s1">link </span><span class="s0">in </span><span class="s1">soup.findAll(</span><span class="s3">'a'</span><span class="s1">):</span>
+        aux.append(link.get(<span class="s3">'href'</span><span class="s1">))</span>
+    <span class="s4"># estrutura de repetição para armazenar os links (não tratados)</span>
+    <span class="s0">for </span><span class="s1">x </span><span class="s0">in </span><span class="s1">aux:</span>
+        <span class="s0">if </span><span class="s1">x </span><span class="s0">is None</span><span class="s1">:</span>
+            x = <span class="s3">&quot;Nada&quot;</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s3">'./articles' </span><span class="s0">in </span><span class="s1">x:</span>
+                linkArray.append(x)
+                <span class="s4">#print(x)</span>
+    # Escolha do link de notícia
+    # Paramêtro 0 começa do primeiro resultado
+    <span class="s1">print(linkArray)</span>
+    escolhePesquisa(<span class="s6">0</span><span class="s2">, </span><span class="s1">linkArray)</span>
+
+
+
+<span class="s4"># Função para escolher qual notícia ler (Préviamente pesquisado)</span>
+<span class="s0">def </span><span class="s1">escolhePesquisa(nLink</span><span class="s2">, </span><span class="s1">link_array):</span>
+    <span class="s4"># tratamnto de Link (Primeiro Passo)</span>
+    <span class="s1">link_array[nLink] = link_array[nLink].replace(</span><span class="s3">&quot;.&quot;</span><span class="s2">, </span><span class="s3">&quot;&quot;</span><span class="s1">)</span>
+    <span class="s4"># Criando a URL da Notícia</span>
+    <span class="s1">url = </span><span class="s3">'https://news.google.com' </span><span class="s1">+ link_array[nLink]</span>
+    print(<span class="s3">'|---- URL DA NOTÍCIA'</span><span class="s1">)</span>
+    print(<span class="s3">'|---- ' </span><span class="s1">+ url)</span>
+    <span class="s4"># armazenando Notícia (artigo)</span>
+    <span class="s1">article = Article(url)</span>
+    a = Article(url)
+
+    <span class="s4"># Download da Notícia, e tratamento de texto.</span>
+    <span class="s1">a.download()</span>
+    a.parse()
+
+    print(<span class="s3">&quot;|---- Título da Notícia:&quot;</span><span class="s1">)</span>
+    print(a.title)
+    <span class="s4"># Inicializando Sintetizador de Voz</span>
+    # Sintetizando a voz
+    <span class="s1">voz = gTTS(</span><span class="s3">'Título: ' </span><span class="s1">+ a.title</span><span class="s2">, </span><span class="s1">lang=</span><span class="s3">'pt'</span><span class="s1">)</span>
+    <span class="s4"># Salvando a voz como arquivo MP3</span>
+    <span class="s1">voz.save(</span><span class="s3">'noticia.mp3'</span><span class="s1">)</span>
+    print(<span class="s3">'Falando...'</span><span class="s1">)</span>
+    <span class="s4"># Iniciando Reprodutor de áudio</span>
+    <span class="s1">mixer.init()</span>
+    <span class="s4"># Carregando arquivo de voz com o título da notícia</span>
+    <span class="s1">mixer.music.load(</span><span class="s3">'noticia.mp3'</span><span class="s1">)</span>
+    <span class="s4"># Reproduzindo</span>
+    <span class="s1">mixer.music.play()</span>
+    <span class="s0">while </span><span class="s1">mixer.music.get_busy():</span>
+        print(<span class="s3">'Continua falando...'</span><span class="s1">)</span>
+        time.sleep(<span class="s6">1</span><span class="s1">)</span>
+
+    <span class="s4"># Opções de escolha da Notícia</span>
+    <span class="s1">fala(</span><span class="s3">&quot;Escolha uma opção, 1 ouvir a pesquisa atual, 2 ouvir a próxima notícia, 3 cancelar sua pesquisa&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;################################&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    1 - Ler Pesquisa          #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    2 - Próxima Pesquisa      #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;#    3 - Cancelar Pesquisa     #&quot;</span><span class="s1">)</span>
+    print(<span class="s3">&quot;################################&quot;</span><span class="s1">)</span>
+    option = reconhece()
+
+    <span class="s0">if </span><span class="s1">(option == </span><span class="s3">&quot;1&quot;</span><span class="s1">):</span>
+        <span class="s4"># Caso escolha ouvir a notícia</span>
+        # Inicia-se a rotina de sintetização e reprodução
+        <span class="s1">voz = gTTS(a.text</span><span class="s2">, </span><span class="s1">lang=</span><span class="s3">'pt'</span><span class="s1">)</span>
+        voz.save(<span class="s3">'noticia.mp3'</span><span class="s1">)</span>
+        mixer.init()
+        mixer.music.load(<span class="s3">'noticia.mp3'</span><span class="s1">)</span>
+        mixer.music.play()
+
+        <span class="s0">while </span><span class="s1">mixer.music.get_busy():</span>
+            print(<span class="s3">'Continua falando...'</span><span class="s1">)</span>
+            time.sleep(<span class="s6">1</span><span class="s1">)</span>
+
+    <span class="s0">elif </span><span class="s1">(option == </span><span class="s3">&quot;2&quot;</span><span class="s1">):</span>
+        <span class="s4"># Pula para o próximo Link da lista</span>
+        <span class="s1">print(nLink)</span>
+        escolhePesquisa(nLink + <span class="s6">2</span><span class="s2">,</span><span class="s1">link_array)</span>
+    <span class="s0">elif </span><span class="s1">(option == </span><span class="s3">&quot;3&quot;</span><span class="s1">):</span>
+        <span class="s4"># Recomeça o programa</span>
+        <span class="s1">init()</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s4"># Caso o input não seja reconhecido da forma esperada.</span>
+        <span class="s1">print(</span><span class="s3">&quot;#    -Repita por Favor&quot;</span><span class="s1">)</span>
+        fala(<span class="s3">&quot;Repita por favor&quot;</span><span class="s1">)</span>
+        option = reconhece()
+
+
+<span class="s4"># Inicia a cadeia de execução.</span>
+<span class="s1">init()</span>
+</pre>
+</body>
+</html>
